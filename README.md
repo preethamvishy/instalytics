@@ -1,10 +1,10 @@
-Instagram analytics for any user without involving tokens or headless browsers.
+NodeJS tool to fetch Instagram analytics for any user without involving tokens or headless browsers. https://www.npmjs.com/package/instalytics
 
 ### Data
 
 *Instalytics* returns the following data
 
-```json
+```javascript
 {
     posts,
     totalLikes,
@@ -19,6 +19,8 @@ Instagram analytics for any user without involving tokens or headless browsers.
 ```
 
 ### Usage
+
+Instalytics can be installed via npm: `npm install instalytics --save`
 
 `Example.js` provides a concise example.
 
