@@ -15,6 +15,13 @@ NodeJS tool to fetch Instagram analytics for any user without involving tokens o
     averageEngagements,
     mostLikedMedia,
     mostCommentedMedia,
+    username,
+    name,
+    id,
+    bio,
+    website,
+    followers,
+    following
 }
 ```
 
