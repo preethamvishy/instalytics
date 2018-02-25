@@ -48,7 +48,14 @@ exports.getStats = username => {
                 console.log('Average engagements:   ' + (likes + comments) / count)
 
                 return res = {
-                posts: count,
+                username: username,
+                name: user.full_name,
+                id: user.id,
+                bio: user.biography,
+                website: user.external_url,
+                followers: user.followed_by.count,
+                following: user.follows.count,
+                posts: user.media.count,
                 totalLikes: likes,
                 totalComments: comments,
                 totalEngagements: (likes + comments),
