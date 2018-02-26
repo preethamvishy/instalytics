@@ -1,9 +1,9 @@
 const { getStats, getFullStats, getQuickStats } = require('./index');
 
-getFullStats('rabonatv').then(stats => {
+getFullStats('instagram').then(stats => {
     console.log(stats);
 });
 
-getQuickStats('rabonatv').then(stats => {
+getQuickStats('instagram', 12).then(stats => {
     console.log(stats);
 });
