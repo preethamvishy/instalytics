@@ -1,4 +1,4 @@
-NodeJS tool to fetch Instagram analytics for any user without involving tokens or headless browsers. https://www.npmjs.com/package/instalytics
+NodeJS tool to fetch Instagram analytics for any user without involving tokens or headless browsers. https://github.com/preethamvishy/instalytics
 
 ### Data
 
@@ -13,8 +13,8 @@ NodeJS tool to fetch Instagram analytics for any user without involving tokens o
     averageLikes,
     averageComments,
     averageEngagements,
-    mostLikedMedia,
-    mostCommentedMedia,
+    mostLikedMedia,         //Number of media customisable. Default: 5
+    mostCommentedMedia,     //Number of media customisable. Default: 5
     username,
     name,
     id,
@@ -24,6 +24,8 @@ NodeJS tool to fetch Instagram analytics for any user without involving tokens o
     following
 }
 ```
+
+⭐️ the [GitHub repo](https://github.com/preethamvishy/instalytics) if this works for you.
 
 ### Usage
 
@@ -39,7 +41,7 @@ getFullStats('instagram').then(stats => {
     console.log(stats);
 });
 
-//Get quick stats (upto 50 latest posts) by the user
+//Get quick stats 50 latest posts by the user (or all posts if the user has < 50 posts)
 getQuickStats('instagram').then(stats => {
     console.log(stats);
 });
