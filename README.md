@@ -32,11 +32,18 @@ Instalytics can be installed via npm: `npm install instalytics --save`
 `Example.js` provides a concise example.
 
 ```javascript
-const { getStats } = require('./index');
+const { getStats, getFullStats, getQuickStats } = require('instalytics');
 
-getStats('instagram').then(stats => {
+//Get full statistics of all posts by the user
+getFullStats('instagram').then(stats => {
     console.log(stats);
 });
+
+//Get quick stats (upto 50 latest posts) by the user
+getQuickStats('instagram').then(stats => {
+    console.log(stats);
+});
+
 ```
 
 
