@@ -1,9 +1,9 @@
 const { getStats, getFullStats, getQuickStats } = require('./index');
 
-getFullStats('instagram').then(stats => {
+getFullStats('eminem').then(stats => {
     console.log(stats);
 });
 
-getQuickStats('instagram', 12).then(stats => {
+getQuickStats('eminem', 12).then(stats => {
     console.log(stats);
 });
