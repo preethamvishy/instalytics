@@ -3,27 +3,27 @@ const {
     getUserMediaAdvanced
  } = require('instapro');
 
-exports.getQuickStats = username => {
+exports.getQuickStats = (username, topCount) => {
     return getUserByUsername(username)
         .then(({ user }, res) => {
             return getUserMediaAdvanced(user.id)
                 .then((userData, res) => {
-                    return this.getStats(userData.data.user.edge_owner_to_timeline_media.edges, user, username)
+                    return this.getStats(userData.data.user.edge_owner_to_timeline_media.edges, user, username, topCount)
                 })
         })
 }
 
-exports.getFullStats = username => {
+exports.getFullStats = (username, topCount) => {
     return getUserByUsername(username)
         .then(({ user }, res) => {
             return fetchAllMedia(user)
                 .then((media, res) => {
-                    return this.getStats(media, user, username)
+                    return this.getStats(media, user, username, topCount)
                 })
         })
 }
 
-exports.getStats = (media, user, username) => {
+exports.getStats = (media, user, username, topCount = 5) => {
     var mediaArray = media,
                     comments = 0,
                     likes = 0,
@@ -33,8 +33,8 @@ exports.getStats = (media, user, username) => {
                     likesArray = [],
                     commentsArray = [];
 
-    var mostLikedMedia = this.getTopLikedMedia(media),
-        mostCommentedMedia = this.getTopCommentedMedia(media);
+    var mostLikedMedia = this.getTopLikedMedia(media, topCount),
+        mostCommentedMedia = this.getTopCommentedMedia(media, topCount);
     for (let node of mediaArray) {
         likes += node.node.edge_media_preview_like.count;
         comments += node.node.edge_media_to_comment.count;
@@ -90,20 +90,20 @@ async function fetchAllMedia(user) {
     return media;
 }
 
-exports.getTopLikedMedia = (media) => {
+exports.getTopLikedMedia = (media, topCount) => {
     return media.sort(function(node1, node2) {
         var x = node1.node.edge_media_preview_like.count
         var y = node2.node.edge_media_preview_like.count
         return ((x > y) ? -1 : ((x < y) ? 1 : 0));
-    }).slice(0, 5)
+    }).slice(0, (topCount > media.length ? media.length : topCount))
  }
  
- exports.getTopCommentedMedia = (media) => {
+ exports.getTopCommentedMedia = (media, topCount) => {
     return media.sort(function(node1, node2) {
         var x = node1.node.edge_media_to_comment.count
         var y = node2.node.edge_media_to_comment.count
         return ((x > y) ? -1 : ((x < y) ? 1 : 0));
-    }).slice(0, 5);
+    }).slice(0, (topCount > media.length ? media.length : topCount));
  }
  
  
