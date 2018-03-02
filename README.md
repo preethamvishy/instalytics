@@ -1,4 +1,4 @@
-NodeJS tool to fetch Instagram analytics for any user without involving tokens or headless browsers. https://www.npmjs.com/package/instalytics
+NodeJS tool to fetch Instagram analytics for any user without involving tokens or headless browsers. 
 
 ⭐️ the [GitHub repo](https://github.com/preethamvishy/instalytics) if this works for you.
 
@@ -23,7 +23,9 @@ NodeJS tool to fetch Instagram analytics for any user without involving tokens o
     bio,
     website,
     followers,
-    following
+    following,
+    profilePicture,
+    profilePictureHD
 }
 ```
 

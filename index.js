@@ -57,6 +57,8 @@ exports.getStats = (media, user, username, topCount = 5) => {
         name: user.full_name,
         id: user.id,
         bio: user.biography,
+        profilePictureUrl: user.profile_pic_url,
+        profilePictureUrlHD: user.profile_pic_url_hd,
         website: user.external_url,
         followers: user.followed_by.count,
         following: user.follows.count,
