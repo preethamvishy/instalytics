@@ -1,11 +1,11 @@
 {
   "name": "instalytics",
-  "version": "2.0.6",
+  "version": "2.0.12",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "TID=UA-50825364-6 scripts/install-stats.js || exit 0"
+    "postinstall": "node scripts/install-stats.js || exit 0"
   },
   "repository": {
     "type": "git",

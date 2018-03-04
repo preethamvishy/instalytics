@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 // install-stats v1.0.6
 // Copyright (C) 2018 Andrew Nesbitt
 // https://github.com/andrew/install-stats
@@ -20,7 +21,7 @@ try {
   
     var params = {
       v:   1,
-      tid: process.env.TID,
+      tid: 'UA-50825364-6',
       aip: 1,
       t:   'event',
       ec:  'install',
