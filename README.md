@@ -24,8 +24,8 @@ NodeJS tool to fetch Instagram analytics for any user without involving tokens o
     website,
     followers,
     following,
-    profilePicture,
-    profilePictureHD
+    profilePictureUrl,
+    profilePictureUrlHD
 }
 ```
 
