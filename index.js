@@ -25,13 +25,9 @@ exports.getFullStats = (username, topCount) => {
 
 exports.getStats = (media, user, username, topCount = 5) => {
     var mediaArray = media,
-                    comments = 0,
-                    likes = 0,
-                    averageComments = 0,
-                    averageLikes = 0,
-                    count = 0,
-                    likesArray = [],
-                    commentsArray = [];
+        comments = 0,
+        likes = 0,
+        count = 0;
 
     var mostLikedMedia = this.getTopLikedMedia(media, topCount),
         mostCommentedMedia = this.getTopCommentedMedia(media, topCount);
@@ -41,8 +37,6 @@ exports.getStats = (media, user, username, topCount = 5) => {
         count++;
     }
 
-    averageLikes = likes / count;
-    averageComments = comments / count;
 
     return res = {
         username: username,
