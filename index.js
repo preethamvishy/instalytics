@@ -2,6 +2,7 @@ const {
     getUserByUsername,
     getUserMediaAdvanced
  } = require('instapro');
+var sleep = require('sleep');
 
 exports.getQuickStats = (username, topCount) => {
     return getUserByUsername(username)
@@ -13,8 +14,8 @@ exports.getQuickStats = (username, topCount) => {
         })
 }
 
-exports.getFullStats = (username, topCount) => {
-    return getUserByUsername(username)
+exports.getFullStats = (username, topCount, interval = 5000) => {
+    return getUserByUsername(username, interval)
         .then(({ user }, res) => {
             return fetchAllMedia(user)
                 .then((media, res) => {
@@ -61,13 +62,14 @@ exports.getStats = (media, user, username, topCount = 5) => {
     }
 }
 
-async function fetchAllMedia(user) {
+async function fetchAllMedia(user, interval) {
     var after = '';
     var userData = {};
     var media = [];
 
     do {
         await getUserMediaAdvanced(user.id, 50, after).then((user) => {
+            sleep.msleep(interval)
             userData = user;
             after = userData.data.user.edge_owner_to_timeline_media.page_info.end_cursor;
             for (let node of userData.data.user.edge_owner_to_timeline_media.edges) {
@@ -79,19 +81,18 @@ async function fetchAllMedia(user) {
 }
 
 exports.getTopLikedMedia = (media, topCount) => {
-    return media.sort(function(node1, node2) {
+    return media.sort(function (node1, node2) {
         var x = node1.node.edge_media_preview_like.count
         var y = node2.node.edge_media_preview_like.count
         return ((x > y) ? -1 : ((x < y) ? 1 : 0));
     }).slice(0, (topCount > media.length ? media.length : topCount))
- }
- 
- exports.getTopCommentedMedia = (media, topCount) => {
-    return media.sort(function(node1, node2) {
+}
+
+exports.getTopCommentedMedia = (media, topCount) => {
+    return media.sort(function (node1, node2) {
         var x = node1.node.edge_media_to_comment.count
         var y = node2.node.edge_media_to_comment.count
         return ((x > y) ? -1 : ((x < y) ? 1 : 0));
     }).slice(0, (topCount > media.length ? media.length : topCount));
- }
- 
- 
+}
+

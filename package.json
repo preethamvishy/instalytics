@@ -1,6 +1,6 @@
 {
   "name": "instalytics",
-  "version": "2.2.0",
+  "version": "2.2.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/preethamvishy/instalytics#readme",
   "dependencies": {
-    "instapro": "^1.1.0"
+    "instapro": "^1.1.0",
+    "sleep": "^5.1.1"
   },
   "keywords": [
     "instagram",
