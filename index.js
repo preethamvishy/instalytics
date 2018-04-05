@@ -6,20 +6,20 @@ var sleep = require('sleep');
 
 exports.getQuickStats = (username, topCount) => {
     return getUserByUsername(username)
-        .then(({ user }, res) => {
-            return getUserMediaAdvanced(user.id)
+        .then(({ graphql }, res) => {
+            return getUserMediaAdvanced(graphql.user.id)
                 .then((userData, res) => {
-                    return this.getStats(userData.data.user.edge_owner_to_timeline_media.edges, user, username, topCount)
+                    return this.getStats(userData.data.user.edge_owner_to_timeline_media.edges, graphql.user, username, topCount)
                 })
         })
 }
 
-exports.getFullStats = (username, topCount, interval = 5000) => {
-    return getUserByUsername(username, interval)
-        .then(({ user }, res) => {
-            return fetchAllMedia(user)
+exports.getFullStats = (username, topCount, interval = 1000) => {
+    return getUserByUsername(username)
+        .then(({ graphql }, res) => {
+            return fetchAllMedia(graphql.user, interval)
                 .then((media, res) => {
-                    return this.getStats(media, user, username, topCount)
+                    return this.getStats(media, graphql.user, username, topCount)
                 })
         })
 }
@@ -47,15 +47,15 @@ exports.getStats = (media, user, username, topCount = 5) => {
         profilePictureUrl: user.profile_pic_url,
         profilePictureUrlHD: user.profile_pic_url_hd,
         website: user.external_url,
-        followers: user.followed_by.count,
-        following: user.follows.count,
-        posts: user.media.count,
+        followers: user.edge_followed_by.count,
+        following: user.edge_follow.count,
+        posts: user.edge_owner_to_timeline_media.count,
         totalLikes: likes,
         totalComments: comments,
-        totalEngagements: (likes + comments).toFixed(1),
-        averageLikes: (likes / count).toFixed(1),
-        averageComments: (comments / count).toFixed(1),
-        averageEngagements: ((likes + comments) / count).toFixed(1),
+        totalEngagements: (likes + comments),
+        averageLikes: Math.round(likes / count),
+        averageComments: Math.round(comments / count),
+        averageEngagements: Math.round((likes + comments) / count),
         mostLikedMedia: mostLikedMedia,
         mostCommentedMedia: mostCommentedMedia,
         success: true
@@ -66,9 +66,9 @@ async function fetchAllMedia(user, interval) {
     var after = '';
     var userData = {};
     var media = [];
-
     do {
         await getUserMediaAdvanced(user.id, 50, after).then((user) => {
+            
             sleep.msleep(interval)
             userData = user;
             after = userData.data.user.edge_owner_to_timeline_media.page_info.end_cursor;
