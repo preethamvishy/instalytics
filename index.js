@@ -6,20 +6,20 @@ var sleep = require('sleep');
 
 exports.getQuickStats = (username, topCount) => {
     return getUserByUsername(username)
-        .then(({ graphql }, res) => {
-            return getUserMediaAdvanced(graphql.user.id)
+        .then(({ user }, res) => {
+            return getUserMediaAdvanced(user.id)
                 .then((userData, res) => {
-                    return this.getStats(userData.data.user.edge_owner_to_timeline_media.edges, graphql.user, username, topCount)
+                    return this.getStats(userData.data.user.edge_owner_to_timeline_media.edges, user, username, topCount)
                 })
         })
 }
 
-exports.getFullStats = (username, topCount, interval = 1000) => {
+exports.getFullStats = (username, topCount, interval = 30000) => {
     return getUserByUsername(username)
-        .then(({ graphql }, res) => {
-            return fetchAllMedia(graphql.user, interval)
+        .then(({ user }, res) => {
+            return fetchAllMedia(user, interval)
                 .then((media, res) => {
-                    return this.getStats(media, graphql.user, username, topCount)
+                    return this.getStats(media, user, username, topCount)
                 })
         })
 }
