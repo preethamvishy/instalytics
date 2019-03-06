@@ -1,9 +1,6 @@
-const { getStats, getFullStats, getQuickStats } = require('./index');
+const { getQuickStats } = require('./index');
 
-getFullStats('eminem').then(stats => {
-    console.log(stats);
-});
-
-getQuickStats('eminem', 12).then(stats => {
+var desiredNumberOfTopPosts = 6;
+getQuickStats('instagram', desiredNumberOfTopPosts).then(stats => {
     console.log(stats);
 });
